@@ -584,9 +584,18 @@
 
       </div>
 
-      <p id="no-results" hidden>
-        Não foram encontrados projetos com esse nome.
-      </p>
+     <p id="no-results" hidden style="
+  text-align: center;
+  color: var(--muted);
+  margin-top: 40px;
+  padding: 30px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  font-size: 1.05rem;
+">
+  Não foram encontrados projetos com esse nome.
+</p>
     </section>
 
     <!-- CONTACTO -->
@@ -652,6 +661,7 @@
   <script>
     // ===== MENU PARA TELEMÓVEIS =====
     const menuBtn = document.getElementById("menu-btn");
+    const navLinks = document.getElementById("nav-links");
     const navLinks = document.getElementById("nav-links");
 
     menuBtn.addEventListener("click", () => {
@@ -792,7 +802,7 @@
       }
 
       // Substitui pelo teu endereço de email.
-      const recipient = "teuemail@exemplo.com";
+      const recipient = "santiagodegouveiagarcia@gmail.com";
 
       if (recipient === "teuemail@exemplo.com") {
         formMessage.textContent =
