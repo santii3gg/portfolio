@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="O meu portefólio pessoal e projetos.">
+  <title>O Meu Portefólio</title>
+
+  <style>
+    /* ===== CONFIGURAÇÕES ===== */
+    :root {
+      --bg: #0b0b12;
+      --surface: #14141f;
+      --text: #f4f3ff;
+      --muted: #a5a3bb;
+      --accent: #a78bfa;
+      --border: #29283b;
+    }
+
+    body.light {
+      --bg: #f6f5fc;
+      --surface: #ffffff;
+      --text: #19172a;
+      --muted: #66647a;
+      --accent: #7650d9;
+      --border: #e3e0ef;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1080px, 90%);
+      margin: auto;
+    }
+
+    .accent {
+      color: var(--accent);
+    }
+
+    /* ===== MENU ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .theme-btn, .menu-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* ===== INTRODUÇÃO ===== */
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 90px 0;
+    }
+
+    .tag {
+      color: var(--accent);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      line-height: 1.12;
+      margin: 25px 0;
+      max-width: 850px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 1.1rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #171022;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    /* ===== SECÇÕES ===== */
+    section {
+      padding: 85px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    /* ===== SOBRE MIM ===== */
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px;
+      border-radius: 18px;
+    }
+
+    .about-card p {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .skill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* ===== PROJETOS ===== */
+    .project-tools {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .project-tools input {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .field {
+      width: 100%;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 15px;
+      outline: none;
+    }
+
+    .field:focus {
+      border-color: var(--accent);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .project-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .project-card button {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    #no-results {
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    /* ===== CONTACTO ===== */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      align-items: start;
+    }
+
+    .contact-info p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 15px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 16px;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    #form-message {
+      color: var(--accent);
+      overflow-wrap: anywhere;
+    }
+
+    /* ===== RODAPÉ ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #171022;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .back-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ===== ANIMAÇÕES ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== TELEMÓVEIS ===== */
+    @media (max-width: 760px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-right {
+        gap: 8px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        padding: 20px 5%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hero {
+        min-height: 70vh;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENU -->
+  <header>
+    <nav class="container" aria-label="Navegação principal">
+      <a href="#inicio" class="logo">portfolio<span class="accent">.</span></a>
+
+      <div class="nav-right">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre mim</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+        <button class="theme-btn" id="theme-btn"
+          aria-label="Mudar tema">☀️</button>
+
+        <button class="menu-btn" id="menu-btn"
+          aria-label="Abrir menu" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- INTRODUÇÃO -->
+    <section class="container hero" id="inicio">
+      <span class="tag">👋 Olá! Bem-vindo ao meu site!</span>
+
+      <h1>
+        Olá, sou <span class="accent">Santiago</span>.<br>
+        Estou a aprender a criar coisas incríveis.
+      </h1>
+
+      <p>
+        Sou um programador iniciante, motivado e com muita vontade 
+		de aprender e evoluir no mundo da programação. Tenho interesse em explorar
+		diferentes linguagens de programação, desenvolver novas competências e criar 
+		projetos que transformem ideias em realidade. Estou sempre à procura de novos desafios e oportunidades 
+		para adquirir conhecimentos, melhorar as minhas capacidades e crescer como programador.
+      </p>
+
+      <div class="buttons">
+        <a href="#projetos" class="btn btn-primary">Ver projetos ↗</a>
+        <a href="#contacto" class="btn btn-secondary">Falar comigo</a>
+      </div>
+    </section>
+
+    <!-- SOBRE MIM -->
+    <section class="container reveal" id="sobre">
+      <div class="section-heading">
+        <h2>Sobre <span class="accent">mim</span></h2>
+        <p>Um pouco sobre quem sou e o que estou a aprender.</p>
+      </div>
+
+      <div class="about-card">
+        <p>
+          Olá! Estou a dar os primeiros passos no desenvolvimento web.
+          Gosto de experimentar ideias, resolver problemas e transformar
+          conceitos em páginas que as pessoas possam utilizar.
+        </p>
+
+        <p>
+          O meu objetivo é continuar a aprender, criar projetos
+          interessantes e melhorar as minhas capacidades todos os dias.
+        </p>
+
+        <h3>O que estou a aprender</h3>
+
+        <div class="skills">
+          <span class="skill">HTML</span>
+          <span class="skill">Web Design</span>
+          <span class="skill">Resolução de problemas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section class="container reveal" id="projetos">
+      <div class="section-heading">
+        <h2>Os meus <span class="accent">projetos</span></h2>
+        <p>Algumas ideias que estou a desenvolver e explorar.</p>
+      </div>
+
+      <div class="project-tools">
+        <input class="field" id="project-search"
+          type="search" placeholder="Pesquisar projetos..."
+          aria-label="Pesquisar projetos">
+      </div>
+
+      <div class="project-grid" id="project-grid">
+
+        <article class="project-card"
+          data-name="calculadora matemática">
+          <div class="project-icon">🧮</div>
+          <h3>Calculadora</h3>
+          <p>
+            Uma calculadora interativa para efetuar operações
+            matemáticas básicas com JavaScript.
+          </p>
+          <button type="button" data-project="calculadora">
+            Ver detalhes ↗
+          </button>
+        </article>
+
+        <article class="project-card"
+          data-name="lista tarefas produtividade">
+          <div class="project-icon">✅</div>
+          <h3>Lista de tarefas</h3>
+          <p>
+            Uma aplicação para adicionar tarefas, marcar atividades
+            concluídas e organizar o dia.
+          </p>
+          <button type="button" data-project="tarefas">
+            Ver detalhes ↗
+          </button>
+        </article>
+
+        <article class="project-card"
+          data-name="jogo quiz perguntas">
+          <div class="project-icon">🎯</div>
+          <h3>Jogo de perguntas</h3>
+          <p>
+            Um pequeno quiz com perguntas, respostas e um sistema
+            de pontuação.
+          </p>
+          <button type="button" data-project="quiz">
+            Ver detalhes ↗
+          </button>
+        </article>
+
+      </div>
+
+      <p id="no-results" hidden>
+        Não foram encontrados projetos com esse nome.
+      </p>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="container reveal" id="contacto">
+      <div class="section-heading">
+        <h2>Vamos falar<span class="accent">?</span></h2>
+        <p>Tens uma ideia ou queres saber mais sobre os meus projetos?</p>
+      </div>
+
+      <div class="contact-layout">
+        <div class="contact-info">
+          <h3>Entra em contacto</h3>
+          <p>
+            Preenche o formulário ao lado para preparar uma mensagem
+            de email.
+          </p>
+          <p>📍 Portugal</p>
+          <p>💻 Disponível para aprender e colaborar em projetos.</p>
+        </div>
+
+        <form class="contact-form" id="contact-form">
+          <div>
+            <label for="name">Nome</label>
+            <input class="field" id="name" name="name"
+              type="text" placeholder="O teu nome"
+              required maxlength="80">
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input class="field" id="email" name="email"
+              type="email" placeholder="nome@exemplo.com"
+              required maxlength="254">
+          </div>
+
+          <div>
+            <label for="message">Mensagem</label>
+            <textarea class="field" id="message" name="message"
+              placeholder="Escreve a tua mensagem..."
+              required maxlength="2000"></textarea>
+          </div>
+
+          <button class="btn btn-primary" type="submit">
+            Preparar email ↗
+          </button>
+
+          <p id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> O Meu Portefólio.</p>
+      <p>Feito com HTML, CSS e JavaScript 💜</p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="back-top"
+    aria-label="Voltar ao início">↑</button>
+
+  <script>
+    // ===== MENU PARA TELEMÓVEIS =====
+    const menuBtn = document.getElementById("menu-btn");
+    const navLinks = document.getElementById("nav-links");
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      menuBtn.setAttribute(
+        "aria-label",
+        isOpen ? "Fechar menu" : "Abrir menu"
+      );
+      menuBtn.textContent = isOpen ? "✕" : "☰";
+    });
+
+    // Fecha o menu depois de escolher uma secção
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Abrir menu");
+        menuBtn.textContent = "☰";
+      });
+    });
+
+    // ===== MODO CLARO / ESCURO =====
+    const themeBtn = document.getElementById("theme-btn");
+
+    // Recupera a preferência guardada no navegador
+    try {
+      if (localStorage.getItem("portfolio-theme") === "light") {
+        document.body.classList.add("light");
+      }
+    } catch (error) {
+      // O site continua a funcionar se o armazenamento não estiver disponível.
+    }
+
+    function updateThemeButton() {
+      const isLight = document.body.classList.contains("light");
+      themeBtn.textContent = isLight ? "🌙" : "☀️";
+      themeBtn.setAttribute(
+        "aria-label",
+        isLight ? "Ativar tema escuro" : "Ativar tema claro"
+      );
+    }
+
+    updateThemeButton();
+
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+
+      const theme = document.body.classList.contains("light")
+        ? "light"
+        : "dark";
+
+      try {
+        localStorage.setItem("portfolio-theme", theme);
+      } catch (error) {
+        // A mudança visual continua a funcionar.
+      }
+
+      updateThemeButton();
+    });
+
+    // ===== PESQUISA DE PROJETOS =====
+    const searchInput = document.getElementById("project-search");
+    const projectCards = document.querySelectorAll(".project-card");
+    const noResults = document.getElementById("no-results");
+
+    searchInput.addEventListener("input", () => {
+      const search = searchInput.value
+        .trim()
+        .toLocaleLowerCase("pt-PT");
+
+      let visibleCount = 0;
+
+      projectCards.forEach(card => {
+        const searchableText = (
+          card.dataset.name + " " + card.textContent
+        ).toLocaleLowerCase("pt-PT");
+
+        const matches = searchableText.includes(search);
+
+        card.hidden = !matches;
+
+        if (matches) visibleCount++;
+      });
+
+      noResults.hidden = visibleCount > 0;
+    });
+
+    // ===== DETALHES DOS PROJETOS =====
+    const projectDetails = {
+      calculadora: {
+        title: "Calculadora",
+        description:
+          "Este projeto permite praticar eventos, operações " +
+          "matemáticas e manipulação de elementos HTML."
+      },
+      tarefas: {
+        title: "Lista de tarefas",
+        description:
+          "Uma aplicação para aprender a adicionar e remover " +
+          "elementos, gerir estados e guardar dados no navegador."
+      },
+      quiz: {
+        title: "Jogo de perguntas",
+        description:
+          "Um quiz para praticar condições, pontuação, eventos " +
+          "e atualização de conteúdo com JavaScript."
+      }
+    };
+
+    document.querySelectorAll("[data-project]").forEach(button => {
+      button.addEventListener("click", () => {
+        const project = projectDetails[button.dataset.project];
+
+        if (project) {
+          alert(project.title + "\n\n" + project.description);
+        }
+      });
+    });
+
+    // ===== FORMULÁRIO DE CONTACTO =====
+    const contactForm = document.getElementById("contact-form");
+    const formMessage = document.getElementById("form-message");
+
+    contactForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!contactForm.reportValidity()) return;
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) {
+        formMessage.textContent = "Preenche todos os campos.";
+        return;
+      }
+
+      // Substitui pelo teu endereço de email.
+      const recipient = "teuemail@exemplo.com";
+
+      if (recipient === "teuemail@exemplo.com") {
+        formMessage.textContent =
+          "O formulário funciona! Para enviar mensagens, " +
+          "substitui o email de exemplo no código pelo teu.";
+        return;
+      }
+
+      const subject = encodeURIComponent(
+        "Contacto através do meu portefólio"
+      );
+
+      const body = encodeURIComponent(
+        "Nome: " + name +
+        "\nEmail: " + email +
+        "\n\nMensagem:\n" + message
+      );
+
+      formMessage.textContent =
+        "A abrir a aplicação de email...";
+
+      window.location.href =
+        "mailto:" + recipient +
+        "?subject=" + subject +
+        "&body=" + body;
+    });
+
+    // ===== ANIMAÇÕES AO FAZER SCROLL =====
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add("show"));
+    }
+
+    // ===== BOTÃO VOLTAR AO INÍCIO =====
+    const backTop = document.getElementById("back-top");
+
+    window.addEventListener("scroll", () => {
+      backTop.classList.toggle("visible", window.scrollY > 400);
+    });
+
+    backTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // ===== ANO AUTOMÁTICO =====
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
